@@ -1,0 +1,52 @@
+[
+  {
+    "ticketId": "MSG-1773781227638",
+    "receivedAtISO": "2026-03-17T21:00:27.638Z",
+    "receivedAt": "18/3/2026, 2:30:27 am",
+    "name": "Prachi Singh",
+    "email": "abc@gmail.com",
+    "subject": "project collaboration",
+    "message": "tell me about project",
+    "ip": "::ffff:127.0.0.1"
+  },
+  {
+    "ticketId": "MSG-1773781478448",
+    "receivedAtISO": "2026-03-17T21:04:38.448Z",
+    "receivedAt": "18/3/2026, 2:34:38 am",
+    "name": "Test User",
+    "email": "test@example.com",
+    "subject": "Backend Check",
+    "message": "Testing inbox receive flow",
+    "ip": "::ffff:127.0.0.1"
+  },
+  {
+    "ticketId": "MSG-1773781533607",
+    "receivedAtISO": "2026-03-17T21:05:33.607Z",
+    "receivedAt": "18/3/2026, 2:35:33 am",
+    "name": "Inbox Test",
+    "email": "inbox@test.com",
+    "subject": "New Backend Live",
+    "message": "Confirming message is visible in inbox page",
+    "ip": "::ffff:127.0.0.1"
+  },
+  {
+    "ticketId": "MSG-1773781644317",
+    "receivedAtISO": "2026-03-17T21:07:24.317Z",
+    "receivedAt": "18/3/2026, 2:37:24 am",
+    "name": "Prachi Singh",
+    "email": "abc@gmail.com",
+    "subject": "project collaboration",
+    "message": "tell me about your project",
+    "ip": "::ffff:127.0.0.1"
+  },
+  {
+    "ticketId": "MSG-1773784348706",
+    "receivedAtISO": "2026-03-17T21:52:28.706Z",
+    "receivedAt": "18/3/2026, 3:22:28 am",
+    "name": "Prachi Singh",
+    "email": "abc@gmail.com",
+    "subject": "project collaboration",
+    "message": "gtyun",
+    "ip": "::ffff:127.0.0.1"
+  }
+]

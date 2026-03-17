@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inbox - Prachi Singh</title>
+  <meta name="description" content="Received contact messages inbox" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="bg-animated"></div>
+<div class="particles"></div>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Prachi Singh</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="inbox.html">Inbox</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span id="themeIcon">🌙</span>
+      <span id="themeLabel">Dark</span>
+    </button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="index.html">🏠 Home</a>
+  <a href="about.html">👤 About</a>
+  <a href="projects.html">🚀 Projects</a>
+  <a href="contact.html">✉️ Contact</a>
+  <a href="inbox.html">📥 Inbox</a>
+</nav>
+
+<main class="page-container">
+  <div class="section-header animate-on-scroll">
+    <span class="section-badge">📥 Inbox</span>
+    <h1 class="section-title">Received <span class="gradient-text">Messages</span></h1>
+    <div class="divider"></div>
+    <p class="section-subtitle">All contact form submissions received by backend.</p>
+  </div>
+
+  <div class="inbox-toolbar animate-on-scroll">
+    <div id="inboxCount" class="inbox-count">Loading...</div>
+    <button id="refreshInbox" class="btn btn-secondary">Refresh</button>
+  </div>
+
+  <div id="inboxList" class="inbox-list animate-on-scroll"></div>
+</main>
+
+<script src="script.js"></script>
+<script>
+  const inboxList = document.getElementById('inboxList');
+  const inboxCount = document.getElementById('inboxCount');
+  const refreshInbox = document.getElementById('refreshInbox');
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  async function loadMessages() {
+    inboxList.innerHTML = '<div class="inbox-empty">Loading messages...</div>';
+
+    try {
+      const res = await fetch('/api/messages');
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        throw new Error(data.message || 'Unable to fetch messages.');
+      }
+
+      const messages = data.messages || [];
+      inboxCount.textContent = `${data.total || messages.length} message(s) received`;
+
+      if (!messages.length) {
+        inboxList.innerHTML = '<div class="inbox-empty">No messages received yet.</div>';
+        return;
+      }
+
+      inboxList.innerHTML = messages.map(msg => `
+        <article class="inbox-card">
+          <div class="inbox-card-head">
+            <div class="inbox-ticket">${escapeHtml(msg.ticketId || '-')}</div>
+            <div class="inbox-time">${escapeHtml(msg.receivedAt || '-')}</div>
+          </div>
+          <h3 class="inbox-subject">${escapeHtml(msg.subject || '(No Subject)')}</h3>
+          <div class="inbox-from">From: ${escapeHtml(msg.name || '-')}, ${escapeHtml(msg.email || '-')}</div>
+          <p class="inbox-message">${escapeHtml(msg.message || '')}</p>
+        </article>
+      `).join('');
+    } catch (err) {
+      inboxList.innerHTML = `<div class="inbox-empty">${escapeHtml(err.message || 'Failed to load messages.')}</div>`;
+      inboxCount.textContent = 'Inbox unavailable';
+    }
+  }
+
+  refreshInbox.addEventListener('click', loadMessages);
+  loadMessages();
+</script>
+</body>
+</html>
