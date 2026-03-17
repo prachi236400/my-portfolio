@@ -159,7 +159,8 @@ if (contactForm) {
       message: document.getElementById('message')?.value?.trim() || ''
     };
 
-    const apiBase = window.location.port === '5000' ? '' : 'http://127.0.0.1:5000';
+    const isLocalFile = window.location.protocol === 'file:';
+    const apiBase = isLocalFile ? 'http://127.0.0.1:5000' : window.location.origin;
 
     try {
       const res = await fetch(`${apiBase}/api/contact`, {
